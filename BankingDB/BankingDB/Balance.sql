@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[Balance]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)
