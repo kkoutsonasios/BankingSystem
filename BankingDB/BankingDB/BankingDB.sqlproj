@@ -58,4 +58,16 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="User.sql" />
+    <Build Include="Account.sql" />
+    <Build Include="Transaction.sql" />
+    <Build Include="Balance.sql" />
+    <Build Include="Person.sql" />
+    <Build Include="PersonAccount.sql" />
+    <Build Include="Settings.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="BankingDB.refactorlog" />
+  </ItemGroup>
 </Project>
