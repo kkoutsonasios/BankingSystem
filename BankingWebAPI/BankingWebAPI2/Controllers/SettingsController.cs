@@ -9,13 +9,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using BankingWebAPI.Models;
+using BankingWebAPI2.Models;
 
-namespace BankingWebAPI.Controllers
+namespace BankingWebAPI2.Controllers
 {
     public class SettingsController : ApiController
     {
-        private BankingWebAPIContext db = new BankingWebAPIContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Settings
         public IQueryable<Setting> GetSettings()
@@ -25,7 +25,7 @@ namespace BankingWebAPI.Controllers
 
         // GET: api/Settings/5
         [ResponseType(typeof(Setting))]
-        public async Task<IHttpActionResult> GetSetting(string id)
+        public async Task<IHttpActionResult> GetSetting(long id)
         {
             Setting setting = await db.Settings.FindAsync(id);
             if (setting == null)
@@ -38,14 +38,14 @@ namespace BankingWebAPI.Controllers
 
         // PUT: api/Settings/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSetting(string id, Setting setting)
+        public async Task<IHttpActionResult> PutSetting(long id, Setting setting)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != setting.SettingName)
+            if (id != setting.Id)
             {
                 return BadRequest();
             }
@@ -81,29 +81,14 @@ namespace BankingWebAPI.Controllers
             }
 
             db.Settings.Add(setting);
+            await db.SaveChangesAsync();
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (SettingExists(setting.SettingName))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = setting.SettingName }, setting);
+            return CreatedAtRoute("DefaultApi", new { id = setting.Id }, setting);
         }
 
         // DELETE: api/Settings/5
         [ResponseType(typeof(Setting))]
-        public async Task<IHttpActionResult> DeleteSetting(string id)
+        public async Task<IHttpActionResult> DeleteSetting(long id)
         {
             Setting setting = await db.Settings.FindAsync(id);
             if (setting == null)
@@ -126,9 +111,9 @@ namespace BankingWebAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SettingExists(string id)
+        private bool SettingExists(long id)
         {
-            return db.Settings.Count(e => e.SettingName == id) > 0;
+            return db.Settings.Count(e => e.Id == id) > 0;
         }
     }
 }

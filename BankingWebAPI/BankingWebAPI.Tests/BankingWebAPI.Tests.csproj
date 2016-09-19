@@ -101,12 +101,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BankingWebAPI\BankingWebAPI.csproj">
-      <Project>{0CB754AC-1228-46AD-A14F-6CB8D406B334}</Project>
-      <Name>BankingWebAPI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

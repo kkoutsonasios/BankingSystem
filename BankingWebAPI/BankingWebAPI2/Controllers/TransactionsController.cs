@@ -9,13 +9,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using BankingWebAPI.Models;
+using BankingWebAPI2.Models;
 
-namespace BankingWebAPI.Controllers
+namespace BankingWebAPI2.Controllers
 {
     public class TransactionsController : ApiController
     {
-        private BankingWebAPIContext db = new BankingWebAPIContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Transactions
         public IQueryable<Transaction> GetTransactions()
