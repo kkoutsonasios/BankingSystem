@@ -4,7 +4,7 @@
     [PersonId] BIGINT NOT NULL, 
     [Description] NVARCHAR(150) NULL, 
     CONSTRAINT [FK_Account_Person] FOREIGN KEY ([PersonId]) REFERENCES [Person]([Id]), 
-    PRIMARY KEY ([Id], [PersonId])
+    CONSTRAINT [PK_Account] PRIMARY KEY ([Id]) 
 )
 
 GO

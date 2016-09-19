@@ -1,9 +1,10 @@
 ﻿CREATE TABLE [dbo].[Person]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY, 
+	[Id] BIGINT NOT NULL  IDENTITY, 
     [FirstName] NVARCHAR(50) NOT NULL, 
     [LastName] NVARCHAR(50) NOT NULL, 
-    [IdNumber] NVARCHAR(50) NOT NULL PRIMARY KEY
+    [IdNumber] NVARCHAR(50) NOT NULL, 
+    CONSTRAINT [PK_Person] PRIMARY KEY ([Id]) 
 )
 
 GO
