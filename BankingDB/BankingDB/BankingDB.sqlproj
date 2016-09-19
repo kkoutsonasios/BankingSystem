@@ -70,4 +70,7 @@
   <ItemGroup>
     <RefactorLog Include="BankingDB.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BankingDB.publish.xml" />
+  </ItemGroup>
 </Project>
