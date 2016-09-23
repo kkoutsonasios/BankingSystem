@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankingWindowsClient.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,11 @@ namespace BankingWindowsClient.ViewModel
 {
     class BankTasksViewModel: BaseViewModel
     {
+        public BankTasksViewModel()
+        {
+            BankTask = new BankTasks();
+        }
+
+        BankTasks BankTask { get; set; }
     }
 }

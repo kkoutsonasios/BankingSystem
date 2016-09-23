@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,21 @@ using System.Windows.Input;
 
 namespace BankingWindowsClient.ViewModel
 {
-    class BaseViewModel: INotifyPropertyChanged
+    class BaseViewModel : INotifyPropertyChanged
     {
+        private BaseViewModel _viewModel;
+
+        public BaseViewModel()
+        {
+            this.ViewModel = new MainViewModel();
+        }
+
+        public BaseViewModel ViewModel
+        {
+            get { return _viewModel; }
+            set { this._viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void RaisePropertyChangedEvent(string propertyName)
@@ -18,9 +32,14 @@ namespace BankingWindowsClient.ViewModel
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public bool IsViewModelOfType<T>()
+        {   //TODO
+            return false;
+        }
     }
 
-    public class DelegateCommand : ICommand
+    abstract public class DelegateCommand : ICommand
     {
         private readonly Action _action;
 
@@ -68,7 +87,7 @@ namespace BankingWindowsClient.ViewModel
         }
     }
 
-    public class AsyncCommand : AsyncCommandBase
+    abstract public class AsyncCommand : AsyncCommandBase
     {
         private readonly Func<Task> _command;
         public AsyncCommand(Func<Task> command)
@@ -83,5 +102,24 @@ namespace BankingWindowsClient.ViewModel
         {
             return _command();
         }
+    }
+
+    public class RelayCommand : ICommand
+    {
+        #region Fields 
+        readonly Action<object> _execute;
+        readonly Predicate<object> _canExecute;
+        #endregion// Fields 
+        #region Constructors 
+        public RelayCommand(Action<object> execute) : this(execute, null) { }
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        { if (execute == null) throw new ArgumentNullException("execute"); _execute = execute; _canExecute = canExecute; }
+        #endregion // Constructors 
+        #region ICommand Members 
+        [DebuggerStepThrough]
+        public bool CanExecute(object parameter) { return _canExecute == null ? true : _canExecute(parameter); } 
+        public event EventHandler CanExecuteChanged { add { CommandManager.RequerySuggested += value; } remove { CommandManager.RequerySuggested -= value; } }
+        public void Execute(object parameter) { _execute(parameter); }
+        #endregion // ICommand Members 
     }
 }

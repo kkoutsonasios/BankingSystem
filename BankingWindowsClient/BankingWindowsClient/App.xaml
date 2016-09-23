@@ -2,8 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BankingWindowsClient"
-             StartupUri="View\Main.xaml">
+             xmlns:ViewModels="clr-namespace:BankingWindowsClient.ViewModel"
+             xmlns:Views="clr-namespace:BankingWindowsClient.View"
+             StartupUri="View\Base.xaml">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type ViewModels:BaseViewModel}">
+            <Views:Base />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:MainViewModel}">
+            <Views:Main />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:BankTasksViewModel}">
+            <Views:BankTasks />
+        </DataTemplate>
     </Application.Resources>
 </Application>
