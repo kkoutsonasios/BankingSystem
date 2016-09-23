@@ -59,7 +59,7 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="User.sql" />
+    <Build Include="eUser.sql" />
     <Build Include="Account.sql" />
     <Build Include="Transaction.sql" />
     <Build Include="Balance.sql" />
@@ -69,5 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BankingDB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BankingDB.publish.xml" />
   </ItemGroup>
 </Project>
