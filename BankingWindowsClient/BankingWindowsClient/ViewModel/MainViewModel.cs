@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Windows.Input;
 
 namespace BankingWindowsClient.ViewModel
@@ -12,15 +13,20 @@ namespace BankingWindowsClient.ViewModel
     {
         public MainViewModel()
         {
-            this.Model = new Model.Main();
         }
 
-        private BaseViewModel _viewModel;
+        //private BaseViewModel _viewModel;
+
+        //public BaseViewModel ViewModel
+        //{
+        //    get { return _viewModel; }
+        //    set { _viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
+        //}
 
         public BaseViewModel ViewModel
         {
-            get { return _viewModel; }
-            set { this._viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
+            get { return (BaseViewModel)_viewModel; }
+            set { _viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
         }
 
         public ICommand DisplayBankTasksView
@@ -31,6 +37,14 @@ namespace BankingWindowsClient.ViewModel
             }
         }
 
+        //public ICommand DisplayBankTasksView
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(action => MainViewModel.ViewModel = new Window1ViewModel(), canExecute => !IsViewModelOfType<BankTasks>());
+        //    }
+        //}
+
         public ICommand DisplayUserTasksView
         {
             get
@@ -38,6 +52,15 @@ namespace BankingWindowsClient.ViewModel
                 return new RelayCommand(action => ViewModel = new UserTasksViewModel(), canExecute => !IsViewModelOfType<UserTasks>());
             }
         }
+
+        public ICommand DisplayPersonView
+        {
+            get
+            {
+                return new RelayCommand(action => ViewModel = new PersonViewModel(), canExecute => !IsViewModelOfType<Person>());
+            }
+        }
+
 
     }
 }

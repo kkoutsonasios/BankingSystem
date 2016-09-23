@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankingWindowsClient.View"
+        xmlns:ViewModel="clr-namespace:BankingWindowsClient.ViewModel"
+        xmlns:View="clr-namespace:BankingWindowsClient.View"
         mc:Ignorable="d"
         d:DesignHeight="300" d:DesignWidth="300">
+    <Page.DataContext>
+        <ViewModel:BankTasksViewModel/>
+    </Page.DataContext>
     <Grid>
-                
+        <Button Content="Person" Command="{Binding DisplayPersonView}" Height="27" VerticalAlignment="Top" Click="Button_Click"/>
     </Grid>
 </Page>

@@ -1,18 +1,22 @@
 ﻿using BankingWindowsClient.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace BankingWindowsClient.ViewModel
 {
     abstract class BaseViewModel : INotifyPropertyChanged
     {
         public BaseModel Model {get;set;}
+
+        internal static object _viewModel;
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -111,5 +115,14 @@ namespace BankingWindowsClient.ViewModel
         public event EventHandler CanExecuteChanged { add { CommandManager.RequerySuggested += value; } remove { CommandManager.RequerySuggested -= value; } }
         public void Execute(object parameter) { _execute(parameter); }
         #endregion // ICommand Members 
+    }
+
+    public class Navigation
+    {
+        public Navigation()
+        {
+            NavigationService test = NavigationService.GetNavigationService(new Frame());
+        }
+
     }
 }

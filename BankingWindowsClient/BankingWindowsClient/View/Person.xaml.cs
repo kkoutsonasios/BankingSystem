@@ -16,17 +16,13 @@ using System.Windows.Shapes;
 namespace BankingWindowsClient.View
 {
     /// <summary>
-    /// Interaction logic for BankTasks.xaml
+    /// Interaction logic for Person.xaml
     /// </summary>
-    public partial class BankTasks : Page
+    public partial class Person : Page
     {
-        public BankTasks()
+        public Person()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }

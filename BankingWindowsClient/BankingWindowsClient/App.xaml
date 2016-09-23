@@ -15,5 +15,8 @@
         <DataTemplate DataType="{x:Type ViewModels:UserTasksViewModel}">
             <Views:UserTasks />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:Window1ViewModel}">
+            <Views:Window1 />
+        </DataTemplate>
     </Application.Resources>
 </Application>

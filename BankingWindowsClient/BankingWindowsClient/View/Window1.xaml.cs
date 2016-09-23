@@ -10,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BankingWindowsClient.View
 {
     /// <summary>
-    /// Interaction logic for BankTasks.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class BankTasks : Page
+    public partial class Window1 : Window
     {
-        public BankTasks()
+        public Window1()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }
