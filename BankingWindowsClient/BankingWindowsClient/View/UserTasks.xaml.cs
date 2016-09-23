@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BankingWindowsClient.View
 {
     /// <summary>
-    /// Interaction logic for Base.xaml
+    /// Interaction logic for UserTasks.xaml
     /// </summary>
-    public partial class Base : Window
+    public partial class UserTasks : Page
     {
-        public Base()
+        public UserTasks()
         {
             InitializeComponent();
         }

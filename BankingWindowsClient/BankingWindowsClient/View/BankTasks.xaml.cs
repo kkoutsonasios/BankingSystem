@@ -17,7 +17,7 @@ namespace BankingWindowsClient.View
     /// <summary>
     /// Interaction logic for BankTasks.xaml
     /// </summary>
-    public partial class BankTasks : Window
+    public partial class BankTasks : Page
     {
         public BankTasks()
         {

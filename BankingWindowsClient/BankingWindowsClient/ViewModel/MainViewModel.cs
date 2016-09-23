@@ -12,16 +12,30 @@ namespace BankingWindowsClient.ViewModel
     {
         public MainViewModel()
         {
-            Main = new Main();
+            this.Model = new Model.Main();
         }
 
-        public Main Main {get;set;}
+        private BaseViewModel _viewModel;
+
+        public BaseViewModel ViewModel
+        {
+            get { return _viewModel; }
+            set { this._viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
+        }
 
         public ICommand DisplayBankTasksView
         {
             get
             {
                 return new RelayCommand(action => ViewModel = new BankTasksViewModel(), canExecute => !IsViewModelOfType<BankTasks>());
+            }
+        }
+
+        public ICommand DisplayUserTasksView
+        {
+            get
+            {
+                return new RelayCommand(action => ViewModel = new UserTasksViewModel(), canExecute => !IsViewModelOfType<UserTasks>());
             }
         }
 

@@ -9,9 +9,12 @@ namespace BankingWindowsClient.ViewModel
 {
     class BankTasksViewModel: BaseViewModel
     {
+
         public BankTasksViewModel()
         {
             BankTask = new BankTasks();
+
+            this.Model = new Model.BankTasks();
         }
 
         BankTasks BankTask { get; set; }

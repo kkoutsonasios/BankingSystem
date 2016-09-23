@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankingWindowsClient.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,20 +10,9 @@ using System.Windows.Input;
 
 namespace BankingWindowsClient.ViewModel
 {
-    class BaseViewModel : INotifyPropertyChanged
+    abstract class BaseViewModel : INotifyPropertyChanged
     {
-        private BaseViewModel _viewModel;
-
-        public BaseViewModel()
-        {
-            this.ViewModel = new MainViewModel();
-        }
-
-        public BaseViewModel ViewModel
-        {
-            get { return _viewModel; }
-            set { this._viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
-        }
+        public BaseModel Model {get;set;}
 
         public event PropertyChangedEventHandler PropertyChanged;
 

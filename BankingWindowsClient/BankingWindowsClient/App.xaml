@@ -4,16 +4,16 @@
              xmlns:local="clr-namespace:BankingWindowsClient"
              xmlns:ViewModels="clr-namespace:BankingWindowsClient.ViewModel"
              xmlns:Views="clr-namespace:BankingWindowsClient.View"
-             StartupUri="View\Base.xaml">
+             StartupUri="View\Main.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type ViewModels:BaseViewModel}">
-            <Views:Base />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:MainViewModel}">
             <Views:Main />
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:BankTasksViewModel}">
             <Views:BankTasks />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:UserTasksViewModel}">
+            <Views:UserTasks />
         </DataTemplate>
     </Application.Resources>
 </Application>
