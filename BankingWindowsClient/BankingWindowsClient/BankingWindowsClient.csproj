@@ -85,6 +85,7 @@
     <Compile Include="Model\Main.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\UserTasks.cs" />
+    <Compile Include="Tools\WebApi.cs" />
     <Compile Include="ViewModel\BankTasksViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

@@ -11,13 +11,15 @@ namespace BankingWindowsClient.Model
     public class Person : BaseModel
     {
 
-        #region Properties
         public Person()
         {
-
+            Controler = "api/People";
         }
+
+        #region Properties
+
         private long _id;
-        public long Id { get { return this._id; } set { this._id = value; RaisePropertyChangedEvent("Id"); } }
+        public override long Id { get { return this._id; } set { this._id = value; RaisePropertyChangedEvent("Id"); } }
 
         private string _firstName;
         public string FirstName { get { return this._firstName; } set { this._firstName = value; RaisePropertyChangedEvent("FirstName"); } }
@@ -43,7 +45,6 @@ namespace BankingWindowsClient.Model
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/People", Person);
             }
         }
-
 
         public async Task ReadPerson()
         {
