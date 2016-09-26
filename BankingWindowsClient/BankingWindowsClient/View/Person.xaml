@@ -16,16 +16,16 @@
 
         <Label Content="Id:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,0,0,0"/>
         <TextBox Text="{Binding Model.Id, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,25,0,0"/>
-        <Button Content="Get data" HorizontalAlignment="Stretch" Height="27" Margin="0,60,0,0" VerticalAlignment="Top" />
+        <Button Command="{Binding GetPerson}" Content="Get data" HorizontalAlignment="Stretch" Height="27" Margin="0,60,0,0" VerticalAlignment="Top" />
         <Label Content="First Name:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,87,0,0"/>
         <TextBox Text="{Binding Model.FirstName, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,112,0,0"/>
         <Label Content="Last Name:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,137,0,0"/>
         <TextBox Text="{Binding Model.LastName, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,162,0,0"/>
         <Label Content="Id Number:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,187,0,0"/>
         <TextBox Text="{Binding Model.IdNumber, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Margin="0,212,0,0"/>
-        <Button Content="Create" HorizontalAlignment="Stretch" Height="27" Margin="0,247,0,0" VerticalAlignment="Top" />
-        <Button Content="Update" HorizontalAlignment="Stretch" Height="27" Margin="0,284,0,0" VerticalAlignment="Top" />
-        <Button Content="Delete" HorizontalAlignment="Stretch" Height="27" Margin="0,321,0,0" VerticalAlignment="Top" />
+        <Button Command="{Binding PostPerson}" Content="Create" HorizontalAlignment="Stretch" Height="27" Margin="0,247,0,0" VerticalAlignment="Top" />
+        <Button Command="{Binding PutPerson}" Content="Update" HorizontalAlignment="Stretch" Height="27" Margin="0,284,0,0" VerticalAlignment="Top" />
+        <Button Command="{Binding DeletePerson}" Content="Delete" HorizontalAlignment="Stretch" Height="27" Margin="0,321,0,0" VerticalAlignment="Top" />
 
     </Grid>
 </Page>

@@ -137,13 +137,4 @@ namespace BankingWindowsClient.ViewModel
         public void Execute(object parameter) { _execute(parameter); }
         #endregion // ICommand Members 
     }
-
-    public class Navigation
-    {
-        public Navigation()
-        {
-            NavigationService test = NavigationService.GetNavigationService(new Frame());
-        }
-
-    }
 }
