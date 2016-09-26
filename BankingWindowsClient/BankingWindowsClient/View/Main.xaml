@@ -13,12 +13,12 @@
     </Window.DataContext>
 
     <!--<ContentControl Content="{Binding ViewModel}"/>-->
-    
+
     <Grid>
         <Frame x:Name="EntryPoint" NavigationUIVisibility="Hidden" Content="{Binding ViewModel}" Margin="120,0,0,0"/>
         <StackPanel HorizontalAlignment="Left" Width="120">
             <Button Command="{Binding DisplayBankTasksView }" Content="Bank Tasks" />
-            <Button Command="{Binding DisplayUserTasksView }" Content="User Tasks" />
+            <Button Command="{Binding DisplayUserTasksView }" Content="User Tasks" Margin="0,10,0,0" />
         </StackPanel>
         
     </Grid>

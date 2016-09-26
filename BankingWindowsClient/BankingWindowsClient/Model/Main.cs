@@ -8,6 +8,5 @@ namespace BankingWindowsClient.Model
 {
     public class Main: BaseModel
     {
-        
     }
 }

@@ -16,6 +16,27 @@ namespace BankingWindowsClient.ViewModel
 
         internal static object _viewModel;
 
+        public BaseViewModel ViewModel
+        {
+            get
+            {
+                return (BaseViewModel)_viewModel;
+            }
+            set
+            {
+                _viewModel = value;
+                OnViewChanged(new EventArgs());
+                this.RaisePropertyChangedEvent("ViewModel");
+            }
+        }
+
+        public static event EventHandler ChangedView;
+
+        protected static void OnViewChanged(EventArgs e)
+        {
+            if (ChangedView != null)
+                ChangedView(null, e);
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,7 +54,7 @@ namespace BankingWindowsClient.ViewModel
         }
     }
 
-    abstract public class DelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         private readonly Action _action;
 
@@ -81,7 +102,7 @@ namespace BankingWindowsClient.ViewModel
         }
     }
 
-    abstract public class AsyncCommand : AsyncCommandBase
+    public class AsyncCommand : AsyncCommandBase
     {
         private readonly Func<Task> _command;
         public AsyncCommand(Func<Task> command)

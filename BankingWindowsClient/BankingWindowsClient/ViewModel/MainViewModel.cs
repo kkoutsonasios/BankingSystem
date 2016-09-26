@@ -1,6 +1,7 @@
 ﻿using BankingWindowsClient.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,43 +14,29 @@ namespace BankingWindowsClient.ViewModel
     {
         public MainViewModel()
         {
+            this.Model = new Main();
+
+            ChangedView += MainViewModel_ChangedView;
         }
 
-        //private BaseViewModel _viewModel;
-
-        //public BaseViewModel ViewModel
-        //{
-        //    get { return _viewModel; }
-        //    set { _viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
-        //}
-
-        public BaseViewModel ViewModel
+        private void MainViewModel_ChangedView(object sender, EventArgs e)
         {
-            get { return (BaseViewModel)_viewModel; }
-            set { _viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
+            this.RaisePropertyChangedEvent("ViewModel");
         }
 
         public ICommand DisplayBankTasksView
         {
             get
             {
-                return new RelayCommand(action => ViewModel = new BankTasksViewModel(), canExecute => !IsViewModelOfType<BankTasks>());
+                return new RelayCommand(action => { ViewModel = new BankTasksViewModel(); }, canExecute => !IsViewModelOfType<BankTasks>());
             }
         }
-
-        //public ICommand DisplayBankTasksView
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(action => MainViewModel.ViewModel = new Window1ViewModel(), canExecute => !IsViewModelOfType<BankTasks>());
-        //    }
-        //}
-
+        
         public ICommand DisplayUserTasksView
         {
             get
             {
-                return new RelayCommand(action => ViewModel = new UserTasksViewModel(), canExecute => !IsViewModelOfType<UserTasks>());
+                return new RelayCommand(action => { ViewModel = new UserTasksViewModel(); }, canExecute => !IsViewModelOfType<UserTasks>());
             }
         }
 
@@ -57,11 +44,9 @@ namespace BankingWindowsClient.ViewModel
         {
             get
             {
-                return new RelayCommand(action => ViewModel = new PersonViewModel(), canExecute => !IsViewModelOfType<Person>());
+                return new RelayCommand(action => { ViewModel = new PersonViewModel(); }, canExecute => !IsViewModelOfType<Person>());
             }
         }
-
-
     }
 }
 

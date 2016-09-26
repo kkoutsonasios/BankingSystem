@@ -17,12 +17,6 @@ namespace BankingWindowsClient.ViewModel
             this.Model = new Model.BankTasks();
         }
 
-        public BaseViewModel ViewModel
-        {
-            get { return (BaseViewModel)_viewModel; }
-            set { _viewModel = value; RaisePropertyChangedEvent("ViewModel"); }
-        }
-
         public ICommand DisplayPersonView
         {
             get
