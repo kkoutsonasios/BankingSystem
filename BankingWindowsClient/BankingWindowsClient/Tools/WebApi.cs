@@ -27,10 +27,10 @@ namespace BankingWindowsClient.Tools
         #endregion //Members
 
         #region CRUD
-        public void Create<T,X>(ref T Model) where T : Model.BaseModel
+        public async void Create<T, X>(ref T Model) where T : Model.BaseModel
         {
-                X WebApiModel = Model.ToWebApiModel<T>();
-                HttpResponseMessage response = await client.PostAsJsonAsync(Model.Controler, WebApiModel);
+            X WebApiModel = Model.ToWebApiModel<X>();
+            HttpResponseMessage response = await client.PostAsJsonAsync(Model.Controler, WebApiModel);
         }
 
         public async void Read<T, X>(ref T Model) where T : Model.BaseModel
@@ -39,24 +39,24 @@ namespace BankingWindowsClient.Tools
             if (response.IsSuccessStatusCode)
             {
                 X WebApiModel = await response.Content.ReadAsAsync<X>();
-                Model.FromWebApiModel(WebApiModel);
+                Model.FromWebApiModel<X>(WebApiModel);
             }
         }
 
-        public void Update<T, X>(ref T Model) where T : Model.BaseModel
+        public async void Update<T, X>(ref T Model) where T : Model.BaseModel
         {
-            X WebApiModel = Model.ToWebApiModel();
-            HttpResponseMessage response = await client.PutAsJsonAsync(string.Format(("{0}/{1}", Model.Controler, Model.Id)), WebApiModel);
+            X WebApiModel = Model.ToWebApiModel<X>();
+            HttpResponseMessage response = await client.PutAsJsonAsync(string.Format(("{0}/{1}", Model.Controler, Model.Id), WebApiModel);
         }
 
-        public void Delete<T, X>(ref T Model) where T : Model.BaseModel
+        public async void Delete<T, X>(ref T Model) where T : Model.BaseModel
         {
-            X WebApiModel = Model.ToWebApiModel();
+            X WebApiModel = Model.ToWebApiModel<X>();
             HttpResponseMessage response = await client.DeleteAsync(string.Format("{0}/{1}", Model.Controler, Model.Id));
         }
         #endregion //CRUD
 
 
-        
+
     }
 }
