@@ -84,9 +84,14 @@
     <Compile Include="..\..\BankingWebAPI\BankingWebAPI2\Models\Transaction.cs">
       <Link>Model\WebAPIModels\Transaction.cs</Link>
     </Compile>
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\Balance.cs" />
     <Compile Include="Model\BankTasks.cs" />
+    <Compile Include="Model\eUser.cs" />
     <Compile Include="Model\Main.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Setting.cs" />
+    <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\UserTasks.cs" />
     <Compile Include="Tools\WebApi.cs" />
     <Compile Include="ViewModel\BankTasksViewModel.cs" />
