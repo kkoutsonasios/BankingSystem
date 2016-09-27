@@ -12,7 +12,7 @@ namespace BankingWindowsClient.ViewModel
 {
     abstract class BaseViewModel : INotifyPropertyChanged
     {
-        public BaseModel Model {get;set;}
+        //public BaseModel<BankingWebAPI2.Models.iBaseWebModel> Model {get;set;}
 
         internal static object _viewModel;
 

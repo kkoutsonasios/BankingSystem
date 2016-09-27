@@ -10,18 +10,18 @@ namespace BankingWindowsClient.Model
 {
 
 
-    public class BaseModel : INotifyPropertyChanged
+    public class BaseModel<X> : INotifyPropertyChanged where X : BankingWebAPI2.Models.iBaseWebModel
     {
         public virtual long Id { get; set; }
 
         public string Controler { get; set; }
 
-        public virtual T ToWebApiModel<T>()
+        public virtual X ToWebApiModel() 
         {
-            return (T)new object();
+            return (X)new object();
         }
 
-        public virtual void FromWebApiModel<T>(T model) where T: BaseModel
+        public virtual void FromWebApiModel(X webApiModel)
         {
 
         }

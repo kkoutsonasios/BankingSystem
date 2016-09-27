@@ -72,6 +72,9 @@
     <Compile Include="..\..\BankingWebAPI\BankingWebAPI2\Models\eUser.cs">
       <Link>Model\WebAPIModels\eUser.cs</Link>
     </Compile>
+    <Compile Include="..\..\BankingWebAPI\BankingWebAPI2\Models\iBaseWebModel.cs">
+      <Link>Model\WebAPIModels\iBaseWebModel.cs</Link>
+    </Compile>
     <Compile Include="..\..\BankingWebAPI\BankingWebAPI2\Models\Person.cs">
       <Link>Model\WebAPIModels\Person.cs</Link>
     </Compile>

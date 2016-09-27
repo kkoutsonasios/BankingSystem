@@ -16,24 +16,27 @@ namespace BankingWindowsClient.ViewModel
 
             GetPerson = new AsyncCommand(async () =>
             {
-                await ((Person)Model).ReadPerson();
+                await Model.ReadPerson();
             });
 
             PostPerson = new AsyncCommand(async () =>
             {
-                await ((Person)Model).CreatePerson();
+                await Model.CreatePerson();
             });
 
             PutPerson = new AsyncCommand(async () =>
             {
-                await ((Person)Model).UpdatePerson();
+                await Model.UpdatePerson();
             });
 
             DeletePerson = new AsyncCommand(async () =>
             {
-                await ((Person)Model).DeletePerson();
+                await Model.DeletePerson();
             });
         }
+
+        public Person Model { get; set; }
+
         public AsyncCommand GetPerson { get; private set; }
 
         public AsyncCommand PostPerson { get; private set; }

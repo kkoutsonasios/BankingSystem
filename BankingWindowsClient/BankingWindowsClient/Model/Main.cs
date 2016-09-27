@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankingWindowsClient.Model
 {
-    public class Main: BaseModel
+    public class Main: BaseModel<BankingWebAPI2.Models.iBaseWebModel>
     {
     }
 }

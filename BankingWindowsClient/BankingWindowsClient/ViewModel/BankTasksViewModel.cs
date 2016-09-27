@@ -14,7 +14,7 @@ namespace BankingWindowsClient.ViewModel
 
         public BankTasksViewModel()
         {
-            this.Model = new Model.BankTasks();
+            //this.Model = new Model.BankTasks();
         }
 
         public ICommand DisplayPersonView

@@ -12,7 +12,7 @@ namespace BankingWebAPI2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Setting
+    public partial class Setting : iBaseWebModel
     {
         public long Id { get; set; }
         public string SettingName { get; set; }

@@ -272,6 +272,7 @@
     <Compile Include="Models\eUser.cs">
       <DependentUpon>BankingModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\iBaseWebModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>BankingModels.tt</DependentUpon>

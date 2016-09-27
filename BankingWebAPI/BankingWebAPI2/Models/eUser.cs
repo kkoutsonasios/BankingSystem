@@ -12,7 +12,7 @@ namespace BankingWebAPI2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class eUser
+    public partial class eUser : iBaseWebModel
     {
         public long Id { get; set; }
         public long PersonId { get; set; }

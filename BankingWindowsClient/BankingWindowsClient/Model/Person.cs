@@ -5,16 +5,24 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using BankingWebAPI2.Models;
 
 namespace BankingWindowsClient.Model
 {
-    public class Person : BaseModel
+    public class Person : BaseModel<BankingWebAPI2.Models.Person>
     {
-
+        #region Constructors
         public Person()
         {
             Controler = "api/People";
+            WebRequest = new Tools.WebApi<Person, BankingWebAPI2.Models.Person>(this);
         }
+
+        #endregion //Constructors
+
+        #region Members
+        private Tools.WebApi<Person, BankingWebAPI2.Models.Person> WebRequest;
+        #endregion //Members
 
         #region Properties
 
@@ -34,78 +42,39 @@ namespace BankingWindowsClient.Model
         #region CRUD
         public async Task CreatePerson()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:61249/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                BankingWebAPI2.Models.Person Person = this.ToWebApiModel();
-
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/People", Person);
-            }
+            WebRequest.Create();
         }
 
         public async Task ReadPerson()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:61249/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(string.Format("api/People/{0}", this.Id));
-                if (response.IsSuccessStatusCode)
-                {
-                    BankingWebAPI2.Models.Person Person = await response.Content.ReadAsAsync<BankingWebAPI2.Models.Person>();
-
-                    this.FromWebApiModel(Person);
-                }
-            }
+            WebRequest.Read();
         }
 
         public async Task UpdatePerson()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:61249/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                BankingWebAPI2.Models.Person Person = this.ToWebApiModel();
-
-                HttpResponseMessage response = await client.PutAsJsonAsync(string.Format("api/People/{0}", this.Id), Person);
-            }
+            WebRequest.Update();
         }
 
         public async Task DeletePerson()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:61249/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                BankingWebAPI2.Models.Person Person = this.ToWebApiModel();
-
-                HttpResponseMessage response = await client.DeleteAsync(string.Format("api/People/{0}", this.Id));
-            }
+            WebRequest.Delete();
         }
         #endregion //CRUD
 
         #region Convertion Methods
-        public BankingWebAPI2.Models.Person ToWebApiModel()
+        public override BankingWebAPI2.Models.Person ToWebApiModel()
         {
             return new BankingWebAPI2.Models.Person() { Id = this.Id, FirstName = this.FirstName, LastName = this.LastName, IdNumber = this.IdNumber };
         }
 
-        public void FromWebApiModel(BankingWebAPI2.Models.Person person)
-        {
-            this.Id = person.Id;
-            this.FirstName = person.FirstName;
-            this.LastName = person.LastName;
-            this.IdNumber = person.IdNumber;
+        public override void FromWebApiModel(BankingWebAPI2.Models.Person person)
+        { 
+            BankingWebAPI2.Models.Person InnerPerson = person;
+            this.Id = InnerPerson.Id;
+            this.FirstName = InnerPerson.FirstName;
+            this.LastName = InnerPerson.LastName;
+            this.IdNumber = InnerPerson.IdNumber;
         }
         #endregion //Convertion Methods
     }

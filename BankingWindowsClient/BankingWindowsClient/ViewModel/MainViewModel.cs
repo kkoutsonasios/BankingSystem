@@ -19,6 +19,8 @@ namespace BankingWindowsClient.ViewModel
             ChangedView += MainViewModel_ChangedView;
         }
 
+        public Main Model { get; set; }
+
         private void MainViewModel_ChangedView(object sender, EventArgs e)
         {
             this.RaisePropertyChangedEvent("ViewModel");
