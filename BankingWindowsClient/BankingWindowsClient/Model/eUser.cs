@@ -35,7 +35,8 @@ namespace BankingWindowsClient.Model
         private string _passwordHash;
         public string PasswordHash { get { return this._passwordHash; } set { this._passwordHash = value; RaisePropertyChangedEvent("PasswordHash"); } }
 
-        public virtual Person Person { get; set; }
+        private Person _person;
+        public Person Person { get { return this._person; } set { this._person = value; RaisePropertyChangedEvent("Person"); } }
 
         #endregion //Properties
 
@@ -65,7 +66,7 @@ namespace BankingWindowsClient.Model
         #region Convertion Methods
         public override BankingWebAPI2.Models.eUser ToWebApiModel()
         {
-            return new BankingWebAPI2.Models.eUser() { Id = this.Id, PersonId = this.PersonId, UserName = this.UserName, PasswordHash = this.PasswordHash};
+            return new BankingWebAPI2.Models.eUser() { Id = this.Id, PersonId = this.PersonId, UserName = this.UserName, PasswordHash = this.PasswordHash, Person = this.Person.ToWebApiModel() };
         }
 
         public override void FromWebApiModel(BankingWebAPI2.Models.eUser eUser)
@@ -74,6 +75,7 @@ namespace BankingWindowsClient.Model
             this.PersonId = eUser.PersonId;
             this.UserName = eUser.UserName;
             this.PasswordHash = eUser.PasswordHash;
+            this.Person.FromWebApiModel(eUser.Person);
         }
         #endregion //Convertion Methods
     }

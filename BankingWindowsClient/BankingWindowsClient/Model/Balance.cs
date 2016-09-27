@@ -32,7 +32,8 @@ namespace BankingWindowsClient.Model
         private double _amount;
         public double Amount { get { return this._amount; } set { this._amount = value; RaisePropertyChangedEvent("Amount"); } }
 
-        public virtual Account Account { get; set; }
+        private Account _account;
+        public Account Account { get { return this._account; } set { this._account = value; RaisePropertyChangedEvent("Account"); } }
 
         #endregion //Properties
 
@@ -62,7 +63,7 @@ namespace BankingWindowsClient.Model
         #region Convertion Methods
         public override BankingWebAPI2.Models.Balance ToWebApiModel()
         {
-            return new BankingWebAPI2.Models.Balance() { Id = this.Id, AccountId = this.AccountId, Amount = this.Amount};
+            return new BankingWebAPI2.Models.Balance() { Id = this.Id, AccountId = this.AccountId, Amount = this.Amount, Account = this.Account.ToWebApiModel()};
         }
 
         public override void FromWebApiModel(BankingWebAPI2.Models.Balance Balance)
@@ -70,6 +71,8 @@ namespace BankingWindowsClient.Model
             this.Id = Balance.Id;
             this.AccountId = Balance.AccountId;
             this.Amount = Balance.Amount;
+            if (Balance.Account != null)
+                this.Account.FromWebApiModel(Balance.Account);
         }
         #endregion //Convertion Methods
     }

@@ -26,6 +26,8 @@
         <Button Command="{Binding PostPerson}" Content="Create" HorizontalAlignment="Stretch" Height="27" Margin="0,247,0,0" VerticalAlignment="Top" />
         <Button Command="{Binding PutPerson}" Content="Update" HorizontalAlignment="Stretch" Height="27" Margin="0,284,0,0" VerticalAlignment="Top" />
         <Button Command="{Binding DeletePerson}" Content="Delete" HorizontalAlignment="Stretch" Height="27" Margin="0,321,0,0" VerticalAlignment="Top" />
-
+        <DataGrid Margin="0,360,0,0" Height="100" VerticalAlignment="Top" ItemsSource="{Binding Model.Accounts}"/>
+        <DataGrid Margin="0,470,0,0" Height="100" VerticalAlignment="Top" ItemsSource="{Binding Model.eUsers}"/>
+        <DataGrid Margin="0,580,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding Model.Transactions}"/>
     </Grid>
 </Page>

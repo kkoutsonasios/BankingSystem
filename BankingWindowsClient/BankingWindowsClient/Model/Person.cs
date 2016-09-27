@@ -6,16 +6,20 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using BankingWebAPI2.Models;
+using System.Collections.ObjectModel;
 
 namespace BankingWindowsClient.Model
 {
-    public class Person : BaseModel<BankingWebAPI2.Models.Person>
+    class Person : BaseModel<BankingWebAPI2.Models.Person>
     {
         #region Constructors
         public Person()
         {
             Controler = "api/People";
             WebRequest = new Tools.WebApi<Person, BankingWebAPI2.Models.Person>(this);
+            this.Accounts = new ObservableCollection<Account>();
+            this.Transactions = new ObservableCollection<Transaction>();
+            this.eUsers = new ObservableCollection<eUser>();
         }
 
         #endregion //Constructors
@@ -38,14 +42,12 @@ namespace BankingWindowsClient.Model
         private string _idNumber;
         public string IdNumber { get { return this._idNumber; } set { this._idNumber = value; RaisePropertyChangedEvent("IdNumber"); } }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<eUser> eUsers { get; set; }
+        public ObservableCollection<Account> Accounts { get;set;}
+
+        public ObservableCollection<Transaction> Transactions { get; set; }
+
+        public ObservableCollection<eUser> eUsers { get; set; }
+
         #endregion //Properties
 
         #region CRUD
@@ -79,11 +81,45 @@ namespace BankingWindowsClient.Model
 
         public override void FromWebApiModel(BankingWebAPI2.Models.Person person)
         { 
-            BankingWebAPI2.Models.Person InnerPerson = person;
-            this.Id = InnerPerson.Id;
-            this.FirstName = InnerPerson.FirstName;
-            this.LastName = InnerPerson.LastName;
-            this.IdNumber = InnerPerson.IdNumber;
+            this.Id = person.Id;
+            this.FirstName = person.FirstName;
+            this.LastName = person.LastName;
+            this.IdNumber = person.IdNumber;
+
+            this.Accounts.Clear();
+            if (person.Accounts != null)
+            {
+                foreach (BankingWebAPI2.Models.Account account in person.Accounts)
+                {
+                    Account Converter = new Account();
+                    Converter.FromWebApiModel(account);
+                    this.Accounts.Add(Converter);
+                }
+            }
+
+            this.Transactions.Clear();
+            if (person.Transactions != null)
+            {
+                foreach (BankingWebAPI2.Models.Transaction transaction in person.Transactions)
+                {
+                    Transaction Converter = new Transaction();
+                    Converter.FromWebApiModel(transaction);
+                    this.Transactions.Add(Converter);
+                }
+            }
+
+            this.eUsers.Clear();
+            if (person.eUsers != null)
+            {                
+                foreach (BankingWebAPI2.Models.eUser eUser in person.eUsers)
+                {
+                    eUser Converter = new eUser();
+                    Converter.FromWebApiModel(eUser);
+                    this.eUsers.Add(Converter);
+                }
+            }
+
+
         }
         #endregion //Convertion Methods
     }

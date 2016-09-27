@@ -47,9 +47,11 @@ namespace BankingWindowsClient.Model
         private System.DateTime _executionDate;
         public System.DateTime ExecutionDate { get { return this._executionDate; } set { this._executionDate = value; RaisePropertyChangedEvent("ExecutionDate"); } }
 
+        private Account _account;
+        public Account Account { get { return this._account; } set { this._account = value; RaisePropertyChangedEvent("Account"); } }
 
-        public virtual Account Account { get; set; }
-        public virtual Person Person { get; set; }
+        private Person _person;
+        public Person Person { get { return this._person; } set { this._person = value; RaisePropertyChangedEvent("Person"); } }
 
         #endregion //Properties
 
@@ -79,7 +81,7 @@ namespace BankingWindowsClient.Model
         #region Convertion Methods
         public override BankingWebAPI2.Models.Transaction ToWebApiModel()
         {
-            return new BankingWebAPI2.Models.Transaction() { Id = this.Id, PersonId = this.PersonId, Description = this.Description };
+            return new BankingWebAPI2.Models.Transaction() { Id = this.Id, PersonId = this.PersonId, Description = this.Description, Account = this.Account.ToWebApiModel(), Person = this.Person.ToWebApiModel() };
         }
 
         public override void FromWebApiModel(BankingWebAPI2.Models.Transaction Transaction)
@@ -87,6 +89,8 @@ namespace BankingWindowsClient.Model
             this.Id = Transaction.Id;
             this.PersonId = Transaction.PersonId;
             this.Description = Transaction.Description;
+            this.Account.FromWebApiModel(Transaction.Account);
+            this.Person.FromWebApiModel(Transaction.Person);
         }
         #endregion //Convertion Methods
     }
