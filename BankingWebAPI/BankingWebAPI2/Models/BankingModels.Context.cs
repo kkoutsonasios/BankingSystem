@@ -27,9 +27,9 @@ namespace BankingWebAPI2.Models
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Balance> Balances { get; set; }
-        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<eUser> eUsers { get; set; }
     }
 }

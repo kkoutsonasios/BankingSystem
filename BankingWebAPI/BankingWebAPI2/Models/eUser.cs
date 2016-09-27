@@ -15,7 +15,6 @@ namespace BankingWebAPI2.Models
     public partial class eUser : iBaseWebModel
     {
         public long Id { get; set; }
-        public long PersonId { get; set; }
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
     

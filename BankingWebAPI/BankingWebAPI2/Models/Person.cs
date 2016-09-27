@@ -17,10 +17,8 @@ namespace BankingWebAPI2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
-            this.Accounts = new HashSet<Account>();
             this.Transactions = new HashSet<Transaction>();
-            this.Accounts1 = new HashSet<Account>();
-            this.eUsers = new HashSet<eUser>();
+            this.Accounts = new HashSet<Account>();
         }
     
         public long Id { get; set; }
@@ -29,12 +27,9 @@ namespace BankingWebAPI2.Models
         public string IdNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<eUser> eUsers { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
+        public virtual eUser eUser { get; set; }
     }
 }

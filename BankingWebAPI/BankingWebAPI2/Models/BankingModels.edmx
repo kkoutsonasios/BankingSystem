@@ -10,7 +10,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonId" Type="bigint" />
           <Property Name="Description" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Balance">
@@ -25,11 +24,8 @@
         <EntityType Name="eUser">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="PersonId" />
-            <PropertyRef Name="UserName" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonId" Type="bigint" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PasswordHash" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -73,18 +69,6 @@
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ExecutionDate" Type="datetime" />
         </EntityType>
-        <Association Name="FK_Account_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Balance_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Balance" Type="Self.Balance" Multiplicity="*" />
@@ -97,15 +81,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_eUser_Person">
+        <Association Name="FK_eUser_Persons">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="eUser" Type="Self.eUser" Multiplicity="*" />
+          <End Role="eUser" Type="Self.eUser" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="eUser">
-              <PropertyRef Name="PersonId" />
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -165,15 +149,11 @@
           <EntitySet Name="PersonAccount" EntityType="Self.PersonAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Account_Person" Association="Self.FK_Account_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Account" EntitySet="Account" />
-          </AssociationSet>
           <AssociationSet Name="FK_Balance_Account" Association="Self.FK_Balance_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Balance" EntitySet="Balance" />
           </AssociationSet>
-          <AssociationSet Name="FK_eUser_Person" Association="Self.FK_eUser_Person">
+          <AssociationSet Name="FK_eUser_Persons" Association="Self.FK_eUser_Persons">
             <End Role="Person" EntitySet="Person" />
             <End Role="eUser" EntitySet="eUser" />
           </AssociationSet>
@@ -203,12 +183,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonId" Type="Int64" />
           <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Account_Person" FromRole="Account" ToRole="Person" />
           <NavigationProperty Name="Balances" Relationship="Self.FK_Balance_Account" FromRole="Account" ToRole="Balance" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transaction_Account" FromRole="Account" ToRole="Transaction" />
-          <NavigationProperty Name="People" Relationship="Self.PersonAccount" FromRole="Account" ToRole="Person" />
+          <NavigationProperty Name="People" Relationship="BankDBModel.PersonAccount" FromRole="Account" ToRole="Person" />
         </EntityType>
         <EntityType Name="Balance">
           <Key>
@@ -219,19 +197,6 @@
           <Property Name="AccountId" Type="Int64" Nullable="false" />
           <Property Name="Amount" Type="Double" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Balance_Account" FromRole="Balance" ToRole="Account" />
-        </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Person" FromRole="Person" ToRole="Account" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transaction_Person" FromRole="Person" ToRole="Transaction" />
-          <NavigationProperty Name="Accounts1" Relationship="Self.PersonAccount" FromRole="Person" ToRole="Account" />
-          <NavigationProperty Name="eUsers" Relationship="BankDBModel.FK_eUser_Person" FromRole="Person" ToRole="eUser" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -256,20 +221,8 @@
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ExecutionDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Transaction_Account" FromRole="Transaction" ToRole="Account" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Transaction_Person" FromRole="Transaction" ToRole="Person" />
+          <NavigationProperty Name="Person" Relationship="BankDBModel.FK_Transaction_Person" FromRole="Transaction" ToRole="Person" />
         </EntityType>
-        <Association Name="FK_Account_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Balance_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Balance" Type="Self.Balance" Multiplicity="*" />
@@ -294,9 +247,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="BankDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Balances" EntityType="Self.Balance" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <AssociationSet Name="FK_Balance_Account" Association="Self.FK_Balance_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Balance" EntitySet="Balances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Account" Association="Self.FK_Transaction_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <EntitySet Name="People" EntityType="BankDBModel.Person" />
+          <AssociationSet Name="FK_Transaction_Person" Association="BankDBModel.FK_Transaction_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="PersonAccount" Association="BankDBModel.PersonAccount">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <EntitySet Name="eUsers" EntityType="BankDBModel.eUser" />
+          <AssociationSet Name="FK_eUser_Persons" Association="BankDBModel.FK_eUser_Persons">
+            <End Role="Person" EntitySet="People" />
+            <End Role="eUser" EntitySet="eUsers" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Transactions" Relationship="BankDBModel.FK_Transaction_Person" FromRole="Person" ToRole="Transaction" />
+          <NavigationProperty Name="Accounts" Relationship="BankDBModel.PersonAccount" FromRole="Person" ToRole="Account" />
+          <NavigationProperty Name="eUser" Relationship="BankDBModel.FK_eUser_Persons" FromRole="Person" ToRole="eUser" />
+        </EntityType>
         <Association Name="FK_Transaction_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <End Type="BankDBModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="BankDBModel.Transaction" Role="Transaction" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
@@ -307,66 +300,31 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="PersonAccount">
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <End Type="BankDBModel.Account" Role="Account" Multiplicity="*" />
+          <End Type="BankDBModel.Person" Role="Person" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BankDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Balances" EntityType="Self.Balance" />
-          <EntitySet Name="People" EntityType="Self.Person" />
-          <EntitySet Name="Settings" EntityType="Self.Setting" />
-          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
-          <AssociationSet Name="FK_Account_Person" Association="Self.FK_Account_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Account" EntitySet="Accounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Balance_Account" Association="Self.FK_Balance_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Balance" EntitySet="Balances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Transaction_Account" Association="Self.FK_Transaction_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Transaction" EntitySet="Transactions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Transaction_Person" Association="Self.FK_Transaction_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Transaction" EntitySet="Transactions" />
-          </AssociationSet>
-          <AssociationSet Name="PersonAccount" Association="Self.PersonAccount">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Person" EntitySet="People" />
-          </AssociationSet>
-          <EntitySet Name="eUsers" EntityType="BankDBModel.eUser" />
-          <AssociationSet Name="FK_eUser_Person" Association="BankDBModel.FK_eUser_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="eUser" EntitySet="eUsers" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="eUser">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="PersonId" />
-            <PropertyRef Name="UserName" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonId" Type="Int64" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Person" Relationship="BankDBModel.FK_eUser_Person" FromRole="eUser" ToRole="Person" />
+          <NavigationProperty Name="Person" Relationship="BankDBModel.FK_eUser_Persons" FromRole="eUser" ToRole="Person" />
         </EntityType>
-        <Association Name="FK_eUser_Person">
+        <Association Name="FK_eUser_Persons">
           <End Type="BankDBModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="BankDBModel.eUser" Role="eUser" Multiplicity="*" />
+          <End Type="BankDBModel.eUser" Role="eUser" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="eUser">
-              <PropertyRef Name="PersonId" />
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -376,7 +334,6 @@
             <EntityTypeMapping TypeName="BankDBModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -387,16 +344,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="BankDBModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -425,12 +372,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="BankDBModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="PersonAccount" TypeName="BankDBModel.PersonAccount" StoreEntitySet="PersonAccount">
-            <EndProperty Name="Account">
-              <ScalarProperty Name="Id" ColumnName="AccountId" />
-            </EndProperty>
             <EndProperty Name="Person">
               <ScalarProperty Name="Id" ColumnName="PersonId" />
+            </EndProperty>
+            <EndProperty Name="Account">
+              <ScalarProperty Name="Id" ColumnName="AccountId" />
             </EndProperty>
           </AssociationSetMapping>
           <EntitySetMapping Name="eUsers">
@@ -438,12 +395,11 @@
               <MappingFragment StoreEntitySet="eUser">
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

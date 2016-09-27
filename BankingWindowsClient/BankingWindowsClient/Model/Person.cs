@@ -19,7 +19,6 @@ namespace BankingWindowsClient.Model
             WebRequest = new Tools.WebApi<Person, BankingWebAPI2.Models.Person>(this);
             this.Accounts = new ObservableCollection<Account>();
             this.Transactions = new ObservableCollection<Transaction>();
-            this.eUsers = new ObservableCollection<eUser>();
         }
 
         #endregion //Constructors
@@ -42,11 +41,15 @@ namespace BankingWindowsClient.Model
         private string _idNumber;
         public string IdNumber { get { return this._idNumber; } set { this._idNumber = value; RaisePropertyChangedEvent("IdNumber"); } }
 
+        private Nullable<long> _eUserId;
+        public Nullable<long> eUserId { get { return this._eUserId; } set { this._eUserId = value; RaisePropertyChangedEvent("eUserId"); } }
+
+        private eUser _eUser;
+        public eUser eUser { get { return this._eUser; } set { this._eUser = value; RaisePropertyChangedEvent("eUser"); } }
+
         public ObservableCollection<Account> Accounts { get;set;}
 
         public ObservableCollection<Transaction> Transactions { get; set; }
-
-        public ObservableCollection<eUser> eUsers { get; set; }
 
         #endregion //Properties
 
@@ -82,9 +85,9 @@ namespace BankingWindowsClient.Model
                 FirstName = this.FirstName,
                 LastName = this.LastName,
                 IdNumber = this.IdNumber,
+                eUser = this.eUser.ToWebApiModel(),
                 Accounts = ObservableToCollection(this.Accounts, new List<BankingWebAPI2.Models.Account>()),
                 Transactions = ObservableToCollection(this.Transactions, new List<BankingWebAPI2.Models.Transaction>()),
-                eUsers = ObservableToCollection(this.eUsers, new List<BankingWebAPI2.Models.eUser>())
             };
         }
 
@@ -97,12 +100,10 @@ namespace BankingWindowsClient.Model
             this.FirstName = person.FirstName;
             this.LastName = person.LastName;
             this.IdNumber = person.IdNumber;
+            this.eUser.FromWebApiModel(person.eUser);
 
             CollectionToObservable(this.Accounts, person.Accounts);
-
             CollectionToObservable(this.Transactions, person.Transactions);
-
-            CollectionToObservable(this.eUsers, person.eUsers);
         }
         #endregion //Convertion Methods
     }

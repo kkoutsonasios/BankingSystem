@@ -23,10 +23,8 @@ namespace BankingWebAPI2.Models
         }
     
         public long Id { get; set; }
-        public Nullable<long> PersonId { get; set; }
         public string Description { get; set; }
     
-        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balance> Balances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

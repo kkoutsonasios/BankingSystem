@@ -31,9 +31,6 @@ namespace BankingWindowsClient.Model
         private long _id;
         public override long Id { get { return this._id; } set { this._id = value; RaisePropertyChangedEvent("Id"); } }
 
-        private Nullable<long> _personId;
-        public Nullable<long> PersonId { get { return this._personId; } set { this._personId = value; RaisePropertyChangedEvent("PersonId"); } }
-
         private string _description;
         public string Description { get { return this._description; } set { this._description = value; RaisePropertyChangedEvent("Description"); } }
 
@@ -74,13 +71,12 @@ namespace BankingWindowsClient.Model
         #region Convertion Methods
         public override BankingWebAPI2.Models.Account ToWebApiModel()
         {
-            return new BankingWebAPI2.Models.Account() { Id = this.Id, PersonId = this.PersonId, Description = this.Description };
+            return new BankingWebAPI2.Models.Account() { Id = this.Id, Description = this.Description };
         }
 
         public override void FromWebApiModel(BankingWebAPI2.Models.Account Account)
         {
             this.Id = Account.Id;
-            this.PersonId = Account.PersonId;
             this.Description = Account.Description;
 
             CollectionToObservable(this.Balances, Account.Balances);

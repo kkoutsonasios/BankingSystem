@@ -66,13 +66,12 @@ namespace BankingWindowsClient.Model
         #region Convertion Methods
         public override BankingWebAPI2.Models.eUser ToWebApiModel()
         {
-            return new BankingWebAPI2.Models.eUser() { Id = this.Id, PersonId = this.PersonId, UserName = this.UserName, PasswordHash = this.PasswordHash, Person = this.Person.ToWebApiModel() };
+            return new BankingWebAPI2.Models.eUser() { Id = this.Id, UserName = this.UserName, PasswordHash = this.PasswordHash, Person = this.Person.ToWebApiModel() };
         }
 
         public override void FromWebApiModel(BankingWebAPI2.Models.eUser eUser)
         {
             this.Id = eUser.Id;
-            this.PersonId = eUser.PersonId;
             this.UserName = eUser.UserName;
             this.PasswordHash = eUser.PasswordHash;
             this.Person.FromWebApiModel(eUser.Person);

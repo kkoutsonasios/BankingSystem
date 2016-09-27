@@ -7,17 +7,16 @@
       <Diagram DiagramId="9b70cbb980c6461288fc06c01dc79122" Name="Diagram1">
         <EntityTypeShape EntityType="BankDBModel.Account" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BankDBModel.Balance" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BankDBModel.Person" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BankDBModel.Setting" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BankDBModel.Transaction" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
-        <AssociationConnector Association="BankDBModel.FK_Account_Person" ManuallyRouted="false" />
         <AssociationConnector Association="BankDBModel.FK_Balance_Account" ManuallyRouted="false" />
         <AssociationConnector Association="BankDBModel.FK_Transaction_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="BankDBModel.FK_Transaction_Person" ManuallyRouted="false" />
-        <AssociationConnector Association="BankDBModel.PersonAccount" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BankDBModel.eUser" Width="1.5" PointX="5.25" PointY="9" />
-        <AssociationConnector Association="BankDBModel.FK_eUser_Person" />
-      </Diagram>
+        <EntityTypeShape EntityType="BankDBModel.Person" Width="1.5" PointX="3" PointY="6.25" />
+        <AssociationConnector Association="BankDBModel.FK_Transaction_Person" />
+        <AssociationConnector Association="BankDBModel.PersonAccount" />
+        <EntityTypeShape EntityType="BankDBModel.eUser" Width="1.5" PointX="6.375" PointY="6.625" />
+        <AssociationConnector Association="BankDBModel.FK_eUser_Persons" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

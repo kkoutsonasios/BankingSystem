@@ -52,6 +52,30 @@ namespace BankingWebAPI2.Controllers
 
             db.Entry(person).State = EntityState.Modified;
 
+            foreach (Account obj in person.Accounts)
+            {
+                if (obj.Id == 0)
+                {
+                    db.Entry(obj).State = EntityState.Added;
+                }
+                else
+                {
+                    db.Entry(obj).State = EntityState.Modified;
+                }
+            }
+
+            foreach (Transaction obj in person.Transactions)
+            {
+                if (obj.Id == 0)
+                {
+                    db.Entry(obj).State = EntityState.Added;
+                }
+                else
+                {
+                    db.Entry(obj).State = EntityState.Modified;
+                }
+            }
+
             try
             {
                 await db.SaveChangesAsync();
