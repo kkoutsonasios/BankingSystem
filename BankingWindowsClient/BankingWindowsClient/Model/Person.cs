@@ -76,8 +76,20 @@ namespace BankingWindowsClient.Model
         #region Convertion Methods
         public override BankingWebAPI2.Models.Person ToWebApiModel()
         {
-            return new BankingWebAPI2.Models.Person() { Id = this.Id, FirstName = this.FirstName, LastName = this.LastName, IdNumber = this.IdNumber };
+            return new BankingWebAPI2.Models.Person()
+            {
+                Id = this.Id,
+                FirstName = this.FirstName,
+                LastName = this.LastName,
+                IdNumber = this.IdNumber,
+                Accounts = ObservableToCollection(this.Accounts, new List<BankingWebAPI2.Models.Account>()),
+                Transactions = ObservableToCollection(this.Transactions, new List<BankingWebAPI2.Models.Transaction>()),
+                eUsers = ObservableToCollection(this.eUsers, new List<BankingWebAPI2.Models.eUser>())
+            };
         }
+
+        
+        
 
         public override void FromWebApiModel(BankingWebAPI2.Models.Person person)
         { 
@@ -86,40 +98,11 @@ namespace BankingWindowsClient.Model
             this.LastName = person.LastName;
             this.IdNumber = person.IdNumber;
 
-            this.Accounts.Clear();
-            if (person.Accounts != null)
-            {
-                foreach (BankingWebAPI2.Models.Account account in person.Accounts)
-                {
-                    Account Converter = new Account();
-                    Converter.FromWebApiModel(account);
-                    this.Accounts.Add(Converter);
-                }
-            }
+            CollectionToObservable(this.Accounts, person.Accounts);
 
-            this.Transactions.Clear();
-            if (person.Transactions != null)
-            {
-                foreach (BankingWebAPI2.Models.Transaction transaction in person.Transactions)
-                {
-                    Transaction Converter = new Transaction();
-                    Converter.FromWebApiModel(transaction);
-                    this.Transactions.Add(Converter);
-                }
-            }
+            CollectionToObservable(this.Transactions, person.Transactions);
 
-            this.eUsers.Clear();
-            if (person.eUsers != null)
-            {                
-                foreach (BankingWebAPI2.Models.eUser eUser in person.eUsers)
-                {
-                    eUser Converter = new eUser();
-                    Converter.FromWebApiModel(eUser);
-                    this.eUsers.Add(Converter);
-                }
-            }
-
-
+            CollectionToObservable(this.eUsers, person.eUsers);
         }
         #endregion //Convertion Methods
     }

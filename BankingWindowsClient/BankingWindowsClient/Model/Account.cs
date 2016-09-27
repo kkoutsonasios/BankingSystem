@@ -83,38 +83,9 @@ namespace BankingWindowsClient.Model
             this.PersonId = Account.PersonId;
             this.Description = Account.Description;
 
-            this.Balances.Clear();
-            if (Account.Balances != null)
-            {
-                foreach (BankingWebAPI2.Models.Balance balance in Account.Balances)
-                {
-                    Balance Converter = new Balance();
-                    Converter.FromWebApiModel(balance);
-                    this.Balances.Add(Converter);
-                }
-            }
-
-            this.Balances.Clear();
-            if (Account.Balances != null)
-            {
-                foreach (BankingWebAPI2.Models.Transaction transaction in Account.Transactions)
-                {
-                    Transaction Converter = new Transaction();
-                    Converter.FromWebApiModel(transaction);
-                    this.Transactions.Add(Converter);
-                }
-            }
-
-            this.People.Clear();
-            if (Account.People != null)
-            {
-                foreach (BankingWebAPI2.Models.Person person in Account.People)
-                {
-                    Person Converter = new Person();
-                    Converter.FromWebApiModel(person);
-                    this.People.Add(Converter);
-                }
-            }
+            CollectionToObservable(this.Balances, Account.Balances);
+            CollectionToObservable(this.Transactions, Account.Transactions);
+            CollectionToObservable(this.People, Account.People);
         }
         #endregion //Convertion Methods
     }

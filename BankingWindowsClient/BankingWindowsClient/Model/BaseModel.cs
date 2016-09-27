@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -34,6 +36,35 @@ namespace BankingWindowsClient.Model
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void CollectionToObservable<T,Z>(ObservableCollection<T> ObCol, ICollection<Z> IColl) where T : BaseModel<Z>, new() where Z : BankingWebAPI2.Models.iBaseWebModel
+        {
+            ObCol.Clear();
+            if (IColl != null)
+            {
+                foreach (Z obj in IColl)
+                {
+                    T Converter = new T();
+                    Converter.FromWebApiModel(obj);
+                    ObCol.Add(Converter);
+                }
+            }
+        }
+
+        public ICollection<Z> ObservableToCollection<T, Z>(ObservableCollection<T> ObCol, ICollection<Z> IColl) where T : BaseModel<Z> where Z : BankingWebAPI2.Models.iBaseWebModel, new()
+        {
+            IColl.Clear();
+            if (ObCol != null)
+            {
+                foreach (T obj in ObCol)
+                {
+                    IColl.Add(obj.ToWebApiModel());
+                }
+            }
+
+            return IColl;
+        }
+
     }
 
 
